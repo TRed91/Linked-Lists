@@ -100,6 +100,51 @@ class LinkedList {
         output = output + 'null'
         return output;
     }
+
+    insertAt(value, index) {
+        let i = 0;
+        let cur = this.start;
+        if (index === 0) {
+            this.start = new Node();
+            this.start.value = value;
+            this.start.next = cur;
+            return
+        }
+        while (cur.next !== null) {
+            i++
+            if (i === index) {
+                let storeList = cur.next;
+                cur.next = new Node();
+                cur.next.value = value;
+                cur.next.next = storeList;
+                return
+            }
+            cur = cur.next;
+        }
+        let storeList = cur.next;
+        cur.next = new Node();
+        cur.next.value = value;
+        cur.next.next = storeList;
+    }
+
+    removeAt(index) {
+        if (index === 0) {
+            this.start = this.start.next; return;
+        }
+        let i = 0;
+        let cur = this.start;
+        let prev = null;
+        while(cur.next !== null) {
+            if (i === index) {
+                prev.next = cur.next;
+                return;
+            }
+            i++;
+            prev = cur;
+            cur = cur.next;
+        }
+        prev.next = cur.next;
+    }
 }
 
 class Node {
@@ -108,15 +153,3 @@ class Node {
 }
 
 let list = new LinkedList()
-list.append(1);
-list.append(2);
-list.append('Hello')
-list.prepend('sike')
-
-console.log(list)
-
-console.log(list.size())
-
-console.log(list.head())
-
-console.log(list.toString())
